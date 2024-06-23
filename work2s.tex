@@ -1,0 +1,98 @@
+%% -*- coding: utf-8 -*-
+\documentclass[12pt,a4paper]{scrartcl} 
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{indentfirst}
+\usepackage{misccorr}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\begin{document}
+
+% Что должно быть во введении
+\begin{enumerate}
+\end{enumerate}
+\large\tableofcontents
+
+\vspace{25\baselineskip}
+
+\section{Теория}
+\subsection{Техническое задание}
+\textbf {Задание:}
+
+Создать программу для генерации случайных паролей заданной длины и сложности.
+
+\subsection{Теоретическая часть}
+
+Пароль создается при помощи модуля random – Модуль python random помогает пользователю генерировать псевдослучайные числа. Внутри модуля есть различные функции, которые просто зависят от функции “random()”. Эта функция генерирует случайное число с плавающей запятой равномерно в полуоткрытом диапазоне [0.0, 1.0), т.е. Она генерирует десятичное число, большее или равное 0 и строго меньшее единицы. Другие функции используют это число по-своему. Эти функции можно использовать для байтов, целых чисел и последовательностей. для нашей задачи нас интересуют последовательности. Существуют функции random . варианты, которые принимают последовательность в качестве аргумента и возвращают случайный элемент из этой последовательности.
+
+1.length указывается длина пароля.
+
+2.alphabets указывается количество символов содержащихся в пароле.
+
+3.digits указывается количество цифр содержащихся в пароле
+
+4.special characters  указывается количество специальных символов содержащихся в пароле
+
+\section{Ход работы}
+\label{sec:exp}
+
+\subsection{Код приложения}
+\label{sec:exp:code}
+\begin{verbatim}
+import string
+import random
+alphabets = list(string.ascii_letters)
+digits = list(string.digits)
+special_characters = list("!@#$%^&*()")
+characters = list(string.ascii_letters + string.digits + "!@#$%^&*()")
+def generate_random_password():
+
+	length = int(input("Укажите длину: "))
+ 
+	alphabets_count = int(input("Ввод символов в пароле: "))
+ 
+	digits_count = int(input("Ввод цифр в пароле: "))
+ 
+	special_characters_count = int(input("Ввод специальных символов в пароле: "))
+ 
+	characters_count = alphabets_count + digits_count + special_characters_count
+	if characters_count > length:
+ 
+		print("Общее количество символов превышает длину пароля.")
+		return
+	password = []
+	for i in range(alphabets_count):
+		password.append(random.choice(alphabets))
+	for i in range(digits_count):
+		password.append(random.choice(digits))
+	for i in range(special_characters_count):
+		password.append(random.choice(special_characters))
+	if characters_count < length:
+		random.shuffle(characters)
+		for i in range(length - characters_count):
+			password.append(random.choice(characters))
+	random.shuffle(password)
+	print("".join(password))
+generate_random_password()
+        \end{verbatim}
+
+
+\subsection{Работа программы} 
+
+
+
+\begin{wrapfigure}
+  \begin{center}
+    \includegraphics[width=0.5\textwidth]{workscr.png}
+  \end{center}
+  \caption{Рис.1  Пример работы программы.}\label{fig:ex}
+\end{wrapfigure}
+
+\newpage
+\begin{thebibliography}{9}
+\bibitem{Knuth-2003}Кнут Д.Э. Всё про \TeX. \newblock --- Москва: Изд. Вильямс, 2003 г. 550~с.
+\bibitem{Lvovsky-2003}Львовский С.М. Набор и верстка в системе \LaTeX{}. \newblock --- 3-е издание, исправленное и дополненное, 2003 г.
+\bibitem{Voroncov-2005}Воронцов К.В. \LaTeX{} в примерах. 2005 г.
+\end{thebibliography}
+
+\end{document}
